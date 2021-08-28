@@ -15,14 +15,14 @@ Le systeme de session est un systeme qui permettra a un follower de choisir son 
 ### tables 
 * user
     * global info :
-        1. id_user
-        2. username
-        3. nickename
-        4. email
-        5. pw
-        6. linked to twitch or discord (a voir comment c'est gere ce truc)
-        7. id_session dont ce user est contribuer 
-        8. nb_de_session deja effectuée
+        * id_user
+        * username
+        * nickename
+        * email
+        * pw
+        * linked to twitch or discord (a voir comment c'est gere ce truc)
+        * id_session dont ce user est contribuer 
+        * nb_de_session deja effectuée
 
 
                 
@@ -37,13 +37,13 @@ Le systeme de session est un systeme qui permettra a un follower de choisir son 
                    
         
 * Session
-    1. id session
-    2. duration
-    3. price
-    4. game
-    5. id du user 1 (streamer) [1->1]
-    6. id du user 2 (follower) [1->1]
-    7. type de session (en cours, non validé, annulé, supprimé.. etc) pour garder l'etat actuelle des sessions dans le cas du non finition de l'usage, où on lui permettra d'écrire se remettre sur le formulaire de ces session son tout retaper
+    * id session
+    * duration
+    * price
+    * game
+    * id du user 1 (streamer) [1->1]
+    * id du user 2 (follower) [1->1]
+    * type de session (en cours, non validé, annulé, supprimé.. etc) pour garder l'etat actuelle des sessions dans le cas du non finition de l'usage, où on lui permettra d'écrire se remettre sur le formulaire de ces session son tout retaper
 
 
 ## Maquette
