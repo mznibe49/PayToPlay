@@ -1,4 +1,4 @@
-# portfolio
+# Pay2Play
 
 ## Project setup
 ```
