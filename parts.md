@@ -4,9 +4,9 @@
 
 vu le gros nombre de follower sur twitch, il y a forcement un nombre qui aura envie de jouer avec son streamer préféré !
 
-Le but est de mettre en lien ces deux dernier avec un system payant automatiser, et en tirer une commission avec un systeme de session.
+Le but est de mettre en lien ces deux dernier avec un système payant automatiser, et en tirer une commission avec un systeme de session.
 
-Le systeme de session est un systeme qui permettra a un follower de choisir son streamer en fonction du prix, dispo .. etc (a développer)
+Le système de session est un systeme qui permettra a un follower de choisir son streamer en fonction du prix, dispo .. etc (a développer)
 
 [TODO -> ajouter + de def] 
 
