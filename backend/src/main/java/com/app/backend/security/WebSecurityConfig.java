@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
+        // proxyTargetClass=true,
         // securedEnabled = true,
         // jsr250Enabled = true,
         prePostEnabled = true)
