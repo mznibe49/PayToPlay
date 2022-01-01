@@ -23,7 +23,11 @@
             <Field name="password" type="password" class="form-control" />
             <ErrorMessage name="password" class="error-feedback" />
           </div>
-
+          <div class="form-group">
+            <label for="conf_password">Password Confirmation</label>
+            <Field name="conf_password" type="password" class="form-control" />
+            <ErrorMessage name="conf_password" class="error-feedback" />
+          </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="loading">
               <span
@@ -75,6 +79,10 @@ export default {
           .required("Password is required!")
           .min(6, "Must be at least 6 characters!")
           .max(40, "Must be maximum 40 characters!"),
+      conf_password: yup
+          .string()
+          .required("Password is required!")
+          .oneOf([yup.ref('password'), null], 'Password must match')
     });
 
     return {
