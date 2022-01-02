@@ -1,6 +1,6 @@
 # Pay2Play
 
-## Concepte
+## Concept
 
 vu le gros nombre de follower sur twitch, il y a forcement un nombre qui aura envie de jouer avec son streamer préféré !
 
