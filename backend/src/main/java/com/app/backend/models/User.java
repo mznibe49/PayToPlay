@@ -1,5 +1,6 @@
 package com.app.backend.models;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,18 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @Column(name="created_time", updatable = false)
+    private Date createdTime;
+
+    @Column(name="updated_time", updatable = false)
+    private Date updatedTime;
+
+    // @Column(name="enable",updatable = true)
+    // private boolean enable;
+
+    @Column(name="reset_password_token")
+    private String resetPasswordToken;
 
     public User() {
     }
@@ -81,6 +94,38 @@ public class User {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    /*public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }*/
+
+    public Date getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public void setRoles(Set<Role> roles) {

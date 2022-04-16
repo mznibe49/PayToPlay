@@ -6,14 +6,14 @@
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           class="profile-img-card"
       />
-      <button class="btn twitch btn-block" :disabled="loading"><img class="twitch-img" src="../assets/twitch.png" alt="twitch">
+      <!-- <button class="btn twitch btn-block" :disabled="loading"><img class="twitch-img" src="../assets/twitch.png" alt="twitch">
         <span class="twitch-text-login">Login with Twitch</span>
       </button>
 
       <button class="btn discord btn-block" :disabled="loading">
         <img class="discord-img" src="../assets/ds.png" alt="discord">
         <span>Login with Discord</span>
-      </button>
+      </button> -->
 
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
@@ -35,6 +35,10 @@
             ></span>
             <span>Login</span>
           </button>
+        </div>
+
+        <div class="form-group forgotten-password">
+          <a class="text-primary">Forgot your password ?</a>
         </div>
 
         <div class="form-group">
@@ -164,5 +168,9 @@ label {
 
 Form {
   margin-top: 30px;
+}
+
+div.forgotten-password {
+  text-align: center;
 }
 </style>
