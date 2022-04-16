@@ -6,6 +6,15 @@
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           class="profile-img-card"
       />
+      <button class="btn twitch btn-block" :disabled="loading"><img class="twitch-img" src="../assets/twitch.png" alt="twitch">
+        <span class="twitch-text-login">Login with Twitch</span>
+      </button>
+
+      <button class="btn discord btn-block" :disabled="loading">
+        <img class="discord-img" src="../assets/ds.png" alt="discord">
+        <span>Login with Discord</span>
+      </button>
+
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
           <label for="username">Username</label>
@@ -125,5 +134,35 @@ label {
 }
 .error-feedback {
   color: red;
+}
+
+.twitch {
+  color: white;
+  background-color : #9146ff;
+}
+
+.discord {
+  color: white;
+  background-color: #2c2f33;
+}
+
+.discord:hover {
+  color: #5865F2;
+}
+
+.discord-img {
+  margin-right: 32px;
+}
+
+.twitch-img {
+  margin-right: 30px;
+}
+
+.twitch-text-login {
+  margin-right: 25px;
+}
+
+Form {
+  margin-top: 30px;
 }
 </style>
