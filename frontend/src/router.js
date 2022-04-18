@@ -2,11 +2,13 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
+import ForgottenPw from "./components/ForgottenPw";
 // lazy-loaded
 const Profile = () => import("./components/Profile.vue")
 const BoardAdmin = () => import("./components/BoardAdmin.vue")
 const BoardModerator = () => import("./components/BoardModerator.vue")
 const BoardUser = () => import("./components/BoardUser.vue")
+// const ForgottenPw = () => import("./components/ForgottenPw.vue")
 
 const routes = [
     {
@@ -25,6 +27,10 @@ const routes = [
     {
         path: "/register",
         component: Register,
+    },
+    {
+        path: "/forgotten_password",
+        component: ForgottenPw,
     },
     {
         path: "/profile",
@@ -49,7 +55,7 @@ const routes = [
         name: "user",
         // lazy-loaded
         component: BoardUser,
-    },
+    }
 ];
 
 const router = createRouter({
@@ -58,7 +64,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/home'];
+    const publicPages = ['/login', '/register', '/home', "/forgotten_password"];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
 

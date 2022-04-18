@@ -1,4 +1,5 @@
 import AuthService from '../services/auth.service';
+import {LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS} from "@/store/mutatuin-types";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -8,53 +9,60 @@ const initialState = user
 export const auth = {
     namespaced: true,
     state: initialState,
+    // actions are asynchronous
+    // one action can call multiple mutations
+    // that's way every time we call dispatch function that triggers actions
+    // we should use "await" before every dispatch call
+    // and use "async" before the method that contains a dispatch call
+    // for example check "handleRegister" in methods existing in Register components
     actions: {
         login({ commit }, user) {
             return AuthService.login(user).then(
                 user => {
-                    commit('loginSuccess', user);
+                    commit(LOGIN_SUCCESS, user);
                     return Promise.resolve(user);
                 },
                 error => {
-                    commit('loginFailure');
+                    commit(LOGIN_FAILURE);
                     return Promise.reject(error);
                 }
             );
         },
         logout({ commit }) {
             AuthService.logout();
-            commit('logout');
+            commit(LOGOUT);
         },
         register({ commit }, user) {
             return AuthService.register(user).then(
                 response => {
-                    commit('registerSuccess');
+                    commit(REGISTER_SUCCESS);
                     return Promise.resolve(response.data);
                 },
                 error => {
-                    commit('registerFailure');
+                    commit(REGISTER_FAILURE);
                     return Promise.reject(error);
                 }
             );
         }
     },
+    // mutations are synchronous
     mutations: {
-        loginSuccess(state, user) {
+        [LOGIN_SUCCESS](state, user) {
             state.status.loggedIn = true;
             state.user = user;
         },
-        loginFailure(state) {
+        [LOGIN_FAILURE](state) {
             state.status.loggedIn = false;
             state.user = null;
         },
-        logout(state) {
+        [LOGOUT](state) {
             state.status.loggedIn = false;
             state.user = null;
         },
-        registerSuccess(state) {
+        [REGISTER_SUCCESS](state) {
             state.status.loggedIn = false;
         },
-        registerFailure(state) {
+        [REGISTER_FAILURE](state) {
             state.status.loggedIn = false;
         }
     }

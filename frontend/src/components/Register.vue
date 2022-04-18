@@ -54,6 +54,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Register",
@@ -93,9 +94,15 @@ export default {
     };
   },
   computed: {
-    loggedIn() {
+    // here we are retrieving the state of loggedIn variable from the store using vuex
+    // 1st one way to do it
+     /* loggedIn() {
       return this.$store.state.auth.status.loggedIn;
-    },
+    }, */
+    // 2nd way to do it: more explicite one
+    ...mapState({ loggedIn: state => state.auth.status.loggedIn}),
+    // 3rd way to do it
+    //...mapState({loggedIn: 'loggedIn'})
   },
   mounted() {
     if (this.loggedIn) {
@@ -103,12 +110,19 @@ export default {
     }
   },
   methods: {
-    handleRegister(user) {
+    // mapAction will help us match the function in the store
+    // so instead of calling this.$store.dispatch("auth/register")
+    // we can directly call this.register()
+    ...mapActions(["auth/register"]),
+    async handleRegister(user) {
       this.message = "";
       this.successful = false;
       this.loading = true;
 
-      this.$store.dispatch("auth/register", user).then(
+      // to call action from store, either we use dispatch method as known
+      // or we use helper function with mapAction like what we did for mapState
+      // this.$store.dispatch("auth/register") is equivalent to this.register (that exist in store)
+      await this.register(user).then(
           (data) => {
             this.message = data.message;
             this.successful = true;

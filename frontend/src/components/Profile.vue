@@ -25,12 +25,17 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: 'Profile',
   computed: {
-    currentUser() {
+    // 1st one way to do it
+    /* currentUser() {
       return this.$store.state.auth.user;
-    }
+    } */
+    // 2nd way to do it: more explicite one
+    ...mapState({ currentUser: state => state.auth.user}),
   },
   mounted() {
     if (!this.currentUser) {

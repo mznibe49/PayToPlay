@@ -33,12 +33,12 @@
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
             ></span>
-            <span>Login</span>
+            <span>Sign In</span>
           </button>
         </div>
 
         <div class="form-group forgotten-password">
-          <a class="text-primary">Forgot your password ?</a>
+          <a class="text-primary" href="/forgotten_password">Forgot your password ?</a>
         </div>
 
         <div class="form-group">
@@ -54,6 +54,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "Login",
@@ -75,9 +76,7 @@ export default {
     };
   },
   computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    },
+    ...mapState({ loggedIn: state => state.auth.status.loggedIn}),
   },
   created() {
     if (this.loggedIn) {
@@ -85,10 +84,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["auth/login"]),
     handleLogin(user) {
       this.loading = true;
 
-      this.$store.dispatch("auth/login", user).then(
+      this.login(user).then(
           () => {
             this.$router.push("/profile");
           },
