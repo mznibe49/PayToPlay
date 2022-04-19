@@ -6,8 +6,6 @@ const initialState = email
     ? { status: { readyToSendRequest: false }, email }
     : { status: { readyToSendRequest: true }, email: null };
 
-
-
 export const fpw = {
     namespaced: true,
     state: initialState,
@@ -20,11 +18,6 @@ export const fpw = {
             state.status.readyToSendRequest = true;
             state.email = null;
         },
-        /*
-        [LOGIN_FAILURE](state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        }, */
     },
     actions: {
         forgetPassword({ commit }, email){

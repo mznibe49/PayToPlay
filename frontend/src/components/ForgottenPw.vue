@@ -98,21 +98,6 @@ export default {
             this.loading = false;
           }
       );
-
-      /*this.$store.dispatch("auth/login", user).then(
-          () => {
-            this.$router.push("/profile");
-          },
-          (error) => {
-            this.loading = false;
-            this.message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-          }
-      );*/
     }
   },
   mounted() {
