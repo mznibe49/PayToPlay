@@ -54,7 +54,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import { mapState, mapActions } from "vuex";
+import { mapState , mapActions } from "vuex";
 
 export default {
   name: "Register",
@@ -113,7 +113,9 @@ export default {
     // mapAction will help us match the function in the store
     // so instead of calling this.$store.dispatch("auth/register")
     // we can directly call this.register()
-    ...mapActions(["auth/register"]),
+    // ==> if we need to call several actions from one component
+    // we simply add them in the mapActions liek so : ...mapActions(["auth/register", "auth/login]) etc..
+    ...mapActions('auth',['register']),
     async handleRegister(user) {
       this.message = "";
       this.successful = false;
@@ -122,6 +124,7 @@ export default {
       // to call action from store, either we use dispatch method as known
       // or we use helper function with mapAction like what we did for mapState
       // this.$store.dispatch("auth/register") is equivalent to this.register (that exist in store)
+      // await this.$store.dispatch("auth/register", user).then(
       await this.register(user).then(
           (data) => {
             this.message = data.message;

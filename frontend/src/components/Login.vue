@@ -54,7 +54,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import {mapActions, mapState} from "vuex";
+import {  mapActions, mapState} from "vuex";
 
 export default {
   name: "Login",
@@ -84,10 +84,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["auth/login"]),
+    // map actions with modules
+     ...mapActions('auth',['login']),
     handleLogin(user) {
       this.loading = true;
 
+      // this.$store.dispatch("auth/login",user).then(
       this.login(user).then(
           () => {
             this.$router.push("/profile");

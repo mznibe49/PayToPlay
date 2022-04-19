@@ -1,5 +1,5 @@
 import AuthService from '../services/auth.service';
-import {LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS} from "@/store/mutatuin-types";
+import {LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_SUCCESS} from "@/store/mutation-types";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -15,6 +15,10 @@ export const auth = {
     // we should use "await" before every dispatch call
     // and use "async" before the method that contains a dispatch call
     // for example check "handleRegister" in methods existing in Register components
+    // actions let us get context wich contains
+    // {state, getters, commit, dispatch}
+    // getters allow us to get a piece of the state
+    // imagine state is an array objects, a getter function can retrieve one specific object :))
     actions: {
         login({ commit }, user) {
             return AuthService.login(user).then(
@@ -65,5 +69,6 @@ export const auth = {
         [REGISTER_FAILURE](state) {
             state.status.loggedIn = false;
         }
-    }
+    },
+    getters: {}
 };

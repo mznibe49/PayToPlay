@@ -8,8 +8,7 @@
           class="profile-img-card"
       />
       <Form @submit="HandleForgottenPassword" :validation-schema="schema">
-        <div v-if="!successful">
-
+        <div>
           <div class="form-group">
             <label for="email">We will be sending a reset password link to your e-mail</label>
             <!-- <Field name="email" type="email" class="form-control" /> -->
@@ -27,11 +26,6 @@
             </button>
           </div>
         </div>
-       <!--  <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">
-            {{ message }}
-          </div>
-        </div> -->
       </Form>
 
       <div
@@ -49,6 +43,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import {mapActions} from "vuex";
 
 export default {
   name: "ForgottenPw",
@@ -74,15 +69,35 @@ export default {
     };
   },
   computed: {
-    /*addingPlaceHolder(){
-      return
-    }*/
   },
   methods: {
-    HandleForgottenPassword() {
+    ...mapActions('fpw',['forgetPassword']),
+    async HandleForgottenPassword(email) {
       this.message = "";
       this.successful = false;
       this.loading = true;
+
+      // this.$store.dispatch("fpw/forgetPassword", email).then(
+      await this.forgetPassword(email).then(
+          (data) => {
+            this.message = data.message;
+            console.log("data msg : ",this.message);
+            this.successful = true;
+            this.loading = false;
+          },
+          (error) => {
+            console.log("data msg : ",error.message);
+
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            this.successful = false;
+            this.loading = false;
+          }
+      );
 
       /*this.$store.dispatch("auth/login", user).then(
           () => {

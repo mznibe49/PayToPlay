@@ -1,6 +1,9 @@
 package com.app.backend.models;
 
-import java.util.Date;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,11 +42,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name="created_time", updatable = false)
-    private Date createdTime;
+    @CreationTimestamp
+    @Column(name="created_time")
+    private LocalDateTime  createdTime;
 
+    @UpdateTimestamp
     @Column(name="updated_time", updatable = false)
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 
     // @Column(name="enable",updatable = true)
     // private boolean enable;
@@ -96,11 +101,11 @@ public class User {
         return roles;
     }
 
-    public Date getCreatedTime() {
+    public LocalDateTime  getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(LocalDateTime  createdTime) {
         this.createdTime = createdTime;
     }
 
@@ -112,11 +117,11 @@ public class User {
         this.enable = enable;
     }*/
 
-    public Date getUpdatedTime() {
+    public LocalDateTime  getUpdatedTime() {
         return updatedTime;
     }
 
-    public void setUpdatedTime(Date updatedTime) {
+    public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
     }
 
