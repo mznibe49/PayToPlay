@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/*
+    this class is loaded by spring security to manage authentications and authorization of users
+ */
 public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;

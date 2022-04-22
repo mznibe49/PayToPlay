@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(	name = "users",
+@Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
@@ -37,24 +37,24 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     @CreationTimestamp
-    @Column(name="created_time")
-    private LocalDateTime  createdTime;
+    @Column(name = "created_time")
+    private LocalDateTime createdTime;
 
     @UpdateTimestamp
-    @Column(name="updated_time", updatable = false)
+    @Column(name = "updated_time", updatable = false)
     private LocalDateTime updatedTime;
 
     // @Column(name="enable",updatable = true)
     // private boolean enable;
 
-    @Column(name="reset_password_token")
-    private String resetPasswordToken;
+    /* @Column(name="reset_password_token")
+    private String resetPasswordToken; */
 
     public User() {
     }
@@ -101,23 +101,15 @@ public class User {
         return roles;
     }
 
-    public LocalDateTime  getCreatedTime() {
+    public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(LocalDateTime  createdTime) {
+    public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
     }
 
-    /*public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }*/
-
-    public LocalDateTime  getUpdatedTime() {
+    public LocalDateTime getUpdatedTime() {
         return updatedTime;
     }
 
@@ -125,13 +117,13 @@ public class User {
         this.updatedTime = updatedTime;
     }
 
-    public String getResetPasswordToken() {
+    /*public String getResetPasswordToken() {
         return resetPasswordToken;
     }
 
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
-    }
+    }*/
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
