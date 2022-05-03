@@ -8,6 +8,11 @@ export const REGISTER_FAILURE = "registerFailure";
 
 
 // ----------- FORGOTTEN PASSWORD MUTATIONS -----------
-export const SEND_REQUEST = "sendRequest";
-export const REQUEST_FAILED = "requestFailed";
+// FPW : forgotten password
+export const SEND_REQUEST_FPW = "sendRequestFpw";
+export const REQUEST_FAILED_FPW = "requestFailedFpw";
+
+// UPW : updated password
+export const SEND_REQUEST_UPW = "sendRequestUpw";
+export const REQUEST_FAILED_UPW = "requestFailedUpw";
 // ----------------------------------------------------

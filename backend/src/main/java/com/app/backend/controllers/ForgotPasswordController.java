@@ -1,21 +1,30 @@
 package com.app.backend.controllers;
 
+import com.app.backend.models.PasswordResetToken;
 import com.app.backend.models.User;
 import com.app.backend.payload.request.ForgotPasswordRequest;
-import com.app.backend.payload.request.LoginRequest;
+import com.app.backend.payload.request.ResetPasswordRequest;
+import com.app.backend.payload.request.UpdatePasswordRequest;
 import com.app.backend.payload.response.MessageResponse;
-import com.app.backend.repository.UserRepository;
+import com.app.backend.repository.PasswordTokenRepository;
 import com.app.backend.security.services.EmailServiceImp;
 import com.app.backend.security.services.UserDetailsServiceImpl;
 import com.app.backend.utils.Utils;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,6 +37,12 @@ public class ForgotPasswordController {
 
     @Autowired
     EmailServiceImp emailService;
+
+    @Autowired
+    PasswordTokenRepository passwordTokenRepository;
+
+    @Value("${spring.application.front.url}")
+    private String frontUrl;
 
     @PostMapping("/forget_password")
     public ResponseEntity<?> processForgotPasswordForm(
@@ -43,11 +58,11 @@ public class ForgotPasswordController {
             String token = RandomString.make(45);
             userService.createPasswordResetTokenForUser(user, token);
             String url = Utils.getSiteUrl(request);
-            String resetLink = url + "/reset_password?token=" + token;
+            String resetLink = url + "/api/reset_password?token=" + token;
 
             try {
                 emailService.sendForgottenPassWordEmail(email, resetLink);
-                // delete token instance in database if expiration date has passe (triggers ??)
+                // delete token instance in database if expiration date has passe (triggers ?? batch ??)
             } catch (Throwable t) {
                 return ResponseEntity
                         .badRequest()
@@ -59,5 +74,39 @@ public class ForgotPasswordController {
         return ResponseEntity
                 .badRequest()
                 .body(new MessageResponse("Could not find any user with email : " + email));
+    }
+
+    @GetMapping("/reset_password")
+    public RedirectView redirect(@Param(value="token") String token,
+                                               RedirectAttributes model){
+        // checking if token is valid or not
+        Optional<PasswordResetToken> passwordResetToken = passwordTokenRepository.findByToken(token);
+        RedirectView redirectView = new RedirectView();
+        String finalUrl = frontUrl + "/reset_password/";
+        if(passwordResetToken.isPresent()){
+            // TODO : checking expiration date and not only the presence of the token
+            finalUrl += token;
+        }
+        redirectView.setUrl(finalUrl);
+        return redirectView;
+    }
+
+    @PostMapping("/update_password")
+    public ResponseEntity<?> updatePassword(HttpServletRequest request,
+                                            @Valid @RequestBody UpdatePasswordRequest updatePasswordRequest){
+
+
+        String token = updatePasswordRequest.getUserToken();
+        String password = updatePasswordRequest.getPassword();
+
+        Optional<PasswordResetToken> passwordResetToken = passwordTokenRepository.findByToken(token);
+        if(passwordResetToken.isPresent()){
+            User user = passwordResetToken.get().getUser();
+            userService.updateUserPassword(user, password);
+            return ResponseEntity.ok(new MessageResponse("Password updated successfully!"));
+        }
+        return ResponseEntity
+                .badRequest() // token not found
+                .body(new MessageResponse("Error while updating password"));
     }
 }

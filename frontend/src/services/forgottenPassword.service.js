@@ -12,6 +12,17 @@ class ForgottenPasswordService {
                 return response.data;
             });
     }
+
+    updatePassword(userToken, newPassword) {
+        return axios
+            .post(API_URL + 'update_password', {
+                userToken : userToken,
+                password : newPassword
+            })
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 
 export default new ForgottenPasswordService();
