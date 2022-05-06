@@ -28,7 +28,7 @@ public class EmailServiceImp {
         String content = "<p>Hello,</p>" +
                 "<p>You have requested to reset your password.</p>" +
                 "<p>Click the link below to change your password : </p>" +
-                "<p><b><a href=\"" + resetLink + "\">Change my password</a></b></p>" +
+                "<p>(This link is available only 24 hours) => <b><a href=\"" + resetLink + "\">Change my password</a></b></p>" +
                 "<p>Ignore this email if you do remember your password, or you have node made the request</p>";
 
         helper.setSubject(subject);

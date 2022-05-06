@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
@@ -84,7 +85,7 @@ public class ForgotPasswordController {
         RedirectView redirectView = new RedirectView();
         String finalUrl = frontUrl + "/reset_password/";
         if(passwordResetToken.isPresent()){
-            // TODO : checking expiration date and not only the presence of the token
+
             finalUrl += token;
         }
         redirectView.setUrl(finalUrl);
@@ -101,6 +102,16 @@ public class ForgotPasswordController {
 
         Optional<PasswordResetToken> passwordResetToken = passwordTokenRepository.findByToken(token);
         if(passwordResetToken.isPresent()){
+
+            PasswordResetToken prToken = passwordResetToken.get();
+            LocalDateTime expiredDate = prToken.getExpiryDate();
+            LocalDateTime now = LocalDateTime.now();
+            if(now.isAfter(expiredDate)){
+                return ResponseEntity
+                        .badRequest() // token not found
+                        .body(new MessageResponse("Your link is expired"));
+            }
+
             User user = passwordResetToken.get().getUser();
             userService.updateUserPassword(user, password);
             return ResponseEntity.ok(new MessageResponse("Password updated successfully!"));

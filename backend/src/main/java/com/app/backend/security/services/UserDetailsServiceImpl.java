@@ -38,16 +38,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public void createPasswordResetTokenForUser(User user, String token) {
         PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken); // first save so JPA will set expiration date = now ()
+        myToken.setExpiryDate(myToken.getExpiryDate().plusDays(1)); // adding 1 day to expiration date
         passwordTokenRepository.save(myToken);
     }
 
-    // getUserByEmail(email);// userRepository.findByEmail(email);
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     public  void updateUserPassword(User user, String password){
-        System.out.println("New Password from user service : "+password);
         String encodedPw = encoder.encode(password);
         user.setPassword(encodedPw);
         userRepository.save(user);

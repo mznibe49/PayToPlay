@@ -1,5 +1,7 @@
 package com.app.backend.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -15,6 +17,7 @@ public class PasswordResetToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
+    @CreationTimestamp
     @Column(name = "expiration_date")
     private LocalDateTime expiryDate;
 
