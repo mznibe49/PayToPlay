@@ -3,18 +3,16 @@ package com.app.backend.controllers;
 import com.app.backend.models.PasswordResetToken;
 import com.app.backend.models.User;
 import com.app.backend.payload.request.ForgotPasswordRequest;
-import com.app.backend.payload.request.ResetPasswordRequest;
 import com.app.backend.payload.request.UpdatePasswordRequest;
 import com.app.backend.payload.response.MessageResponse;
 import com.app.backend.repository.PasswordTokenRepository;
-import com.app.backend.security.services.EmailServiceImp;
-import com.app.backend.security.services.UserDetailsServiceImpl;
+import com.app.backend.services.EmailServiceImp;
+import com.app.backend.services.UserDetailsServiceImpl;
 import com.app.backend.utils.Utils;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)

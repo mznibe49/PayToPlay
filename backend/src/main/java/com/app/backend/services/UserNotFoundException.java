@@ -1,4 +1,4 @@
-package com.app.backend.security.services;
+package com.app.backend.services;
 
 public class UserNotFoundException extends Throwable {
 

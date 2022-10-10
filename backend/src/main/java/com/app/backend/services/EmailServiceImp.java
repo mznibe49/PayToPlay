@@ -1,4 +1,4 @@
-package com.app.backend.security.services;
+package com.app.backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

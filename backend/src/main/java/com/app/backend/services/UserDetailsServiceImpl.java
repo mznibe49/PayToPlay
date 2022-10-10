@@ -1,4 +1,4 @@
-package com.app.backend.security.services;
+package com.app.backend.services;
 
 import com.app.backend.models.PasswordResetToken;
 import com.app.backend.models.User;

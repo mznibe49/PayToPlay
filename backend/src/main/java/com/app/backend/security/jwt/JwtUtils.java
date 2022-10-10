@@ -2,7 +2,7 @@ package com.app.backend.security.jwt;
 
 import java.util.Date;
 
-import com.app.backend.security.services.UserDetailsImpl;
+import com.app.backend.services.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

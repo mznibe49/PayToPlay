@@ -17,7 +17,7 @@ import com.app.backend.payload.response.MessageResponse;
 import com.app.backend.repository.RoleRepository;
 import com.app.backend.repository.UserRepository;
 import com.app.backend.security.jwt.JwtUtils;
-import com.app.backend.security.services.UserDetailsImpl;
+import com.app.backend.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

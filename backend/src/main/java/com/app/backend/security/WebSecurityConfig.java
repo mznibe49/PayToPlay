@@ -2,7 +2,7 @@ package com.app.backend.security;
 
 import com.app.backend.security.jwt.AuthEntryPointJwt;
 import com.app.backend.security.jwt.AuthTokenFilter;
-import com.app.backend.security.services.UserDetailsServiceImpl;
+import com.app.backend.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
