@@ -6,19 +6,29 @@ services:
     build:
       context: .
     container_name: app
+    env_file:
+      - .env
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
-      - SPRING_DATASOURCE_USERNAME=compose-postgres
-      - SPRING_DATASOURCE_PASSWORD=compose-postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - AUTH_APP_JWTSECRET=mainBaseSecretKey
-      - AUTH_APP_JWTEXPIRATION=86400000
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - AUTH_APP_JWTSECRET=${JWTSECRET}
+      - AUTH_APP_JWTEXPIRATION=${JWTEXPIRATION}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/app/src
+
 
   db:
     image: 'postgres:13.1-alpine'
     container_name: db
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5432:5432"
