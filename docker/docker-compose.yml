@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
+    build: ../backend
+    container_name: Springboot-app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - AUTH_APP_JWTSECRET=${JWTSECRET}
+      - AUTH_APP_JWTEXPIRATION=${JWTEXPIRATION}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../backend/src:/backend/src
+
+
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: psql-db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+
+
+  frontend:
+    build: ../frontend
+    container_name: vueJs
+    ports:
+      - "8081:8081"
+    depends_on:
+      - app
+    volumes:
+      - ../frontend/:/frontend

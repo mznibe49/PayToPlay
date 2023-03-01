@@ -1,0 +1,41 @@
+# running springboot with local psql
+spring.datasource.url= ${SPRING_DATASOURCE_URL}
+
+# running springboot with docker image -> p2p-docker-psql is the container name
+# mainDataBase is the name of our data base
+# spring.datasource.url= jdbc:postgresql://p2p-docker-psql:5432/mainDataBase
+spring.datasource.username= ${SPRING_DATASOURCE_USERNAME}
+spring.datasource.password= ${SPRING_DATASOURCE_PASSWORD}
+
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
+
+# Hibernate ddl auto (create, create-drop, validate, update)
+# For production, this property should be validate (why ?)
+# sql basic data for roles table in case we are initializing the project in new environment
+# Hibernate will only execute import.sql for create or create-drop (switching update value)
+spring.jpa.hibernate.ddl-auto=update
+# spring.datasource.data=classpath:import.sql
+# spring.datasource.initialization-mode=always
+
+# We can still have both Hibernate automatic schema generation and script-based schema creation in conjugation by setting the following property in the application.properties.
+# spring.jpa.defer-datasource-initialization=true
+# If you always want database initialize using the scripts, add spring.sql.init.mode=always in the application.properties file
+# <spring.sql.init.mode=always
+
+# App Properties
+auth.app.jwtSecret= ${JWTSECRET}
+auth.app.jwtExpirationMs= ${JWTEXPIRATION}
+
+# mail service
+spring.mail.host=${SPRING_MAIL_HOST}
+spring.mail.port=${SPRING_MAIL_PORT}
+spring.mail.username=${SPRING_MAIL_USERNAME}
+spring.mail.password=${SPRING_MAIL_PASSWORD}
+spring.mail.properties.mail.smtp.auth=${SPRING_MAIL_PROPS_SMTP_AUTH}
+spring.mail.properties.mail.smtp.starttls.enable=${SPRING_MAIL_PROPS_SMTP_STARTTLS_ENABLE}
+
+# front side url
+spring.application.front.url=${SPRING_APPLICATION_FRONT_URL}
+
+
