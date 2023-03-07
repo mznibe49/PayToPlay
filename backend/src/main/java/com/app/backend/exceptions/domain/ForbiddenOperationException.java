@@ -1,11 +1,11 @@
 package com.app.backend.exceptions.domain;
 
-import com.app.backend.exceptions.GiskardException;
-import com.app.backend.exceptions.GiskardExceptionStatus;
+import com.app.backend.exceptions.AppCustomException;
+import com.app.backend.exceptions.AppCustomExceptionStatus;
 
-public class ForbiddenOperationException extends GiskardException {
+public class ForbiddenOperationException extends AppCustomException {
 
   public ForbiddenOperationException() {
-    super("Forbidden operation", GiskardExceptionStatus.FORBIDDEN);
+    super("Forbidden operation", AppCustomExceptionStatus.FORBIDDEN);
   }
 }

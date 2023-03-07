@@ -1,6 +1,6 @@
 package com.app.backend.exceptions;
 
-public enum GiskardExceptionStatus {
+public enum AppCustomExceptionStatus {
   BAD_REQUEST("Bad Request"),
   NOT_FOUND("Not Found"),
   FORBIDDEN("Forbidden"),
@@ -8,7 +8,7 @@ public enum GiskardExceptionStatus {
 
   private final String representation;
 
-  GiskardExceptionStatus(String representation) {
+  AppCustomExceptionStatus(String representation) {
     this.representation = representation;
   }
 

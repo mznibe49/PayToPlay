@@ -1,12 +1,12 @@
 package com.app.backend.exceptions.domain;
 
-import com.app.backend.exceptions.GiskardException;
-import com.app.backend.exceptions.GiskardExceptionStatus;
-public class OverlappingAvailabilityException extends GiskardException {
+import com.app.backend.exceptions.AppCustomException;
+import com.app.backend.exceptions.AppCustomExceptionStatus;
+public class OverlappingAvailabilityException extends AppCustomException {
 
   public OverlappingAvailabilityException() {
     super(
         "The given availability is overlapping an existing one",
-        GiskardExceptionStatus.BAD_REQUEST);
+        AppCustomExceptionStatus.BAD_REQUEST);
   }
 }

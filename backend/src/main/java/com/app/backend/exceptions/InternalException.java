@@ -1,9 +1,9 @@
 package com.app.backend.exceptions;
 
-public class InternalException extends GiskardException {
+public class InternalException extends AppCustomException {
 
   private InternalException(String message) {
-    super(message, GiskardExceptionStatus.INTERNAL_SERVER_ERROR);
+    super(message, AppCustomExceptionStatus.INTERNAL_SERVER_ERROR);
   }
 
   public static InternalException withMessage(String message) {

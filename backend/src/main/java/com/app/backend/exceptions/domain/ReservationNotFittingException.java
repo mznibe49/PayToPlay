@@ -1,11 +1,11 @@
 package com.app.backend.exceptions.domain;
 
-import com.app.backend.exceptions.GiskardException;
-import com.app.backend.exceptions.GiskardExceptionStatus;
+import com.app.backend.exceptions.AppCustomException;
+import com.app.backend.exceptions.AppCustomExceptionStatus;
 
-public class ReservationNotFittingException extends GiskardException {
+public class ReservationNotFittingException extends AppCustomException {
 
   public ReservationNotFittingException() {
-    super("Reservation does not fit inside availability", GiskardExceptionStatus.BAD_REQUEST);
+    super("Reservation does not fit inside availability", AppCustomExceptionStatus.BAD_REQUEST);
   }
 }

@@ -23,15 +23,15 @@ public class ExceptionHandlerController {
     return HttpException.builder()
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .message(INTERNAL_ERROR_MESSAGE)
-        .error(GiskardExceptionStatus.INTERNAL_SERVER_ERROR.getRepresentation())
+        .error(AppCustomExceptionStatus.INTERNAL_SERVER_ERROR.getRepresentation())
         .path(request.getDescription(false).substring(4))
         .build()
         .toResponseEntity();
   }
 
-  @ExceptionHandler({GiskardException.class})
+  @ExceptionHandler({AppCustomException.class})
   public ResponseEntity<HttpException> handleGiskardException(
-      GiskardException exception, WebRequest request) {
+          AppCustomException exception, WebRequest request) {
     logger.error(exception.getMessage());
 
     // Hide message before sending it to the client
@@ -47,8 +47,8 @@ public class ExceptionHandlerController {
         .toResponseEntity();
   }
 
-  private HttpStatus getHttpStatus(GiskardException exception) {
-    GiskardExceptionStatus status = exception.getStatus();
+  private HttpStatus getHttpStatus(AppCustomException exception) {
+    AppCustomExceptionStatus status = exception.getStatus();
     if (status == null) {
       return HttpStatus.INTERNAL_SERVER_ERROR;
     }
