@@ -17,7 +17,7 @@
 
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
-          <label for="username">Username</label>
+          <label for="username">Email</label>
           <Field name="username" type="text" class="form-control" />
           <ErrorMessage name="username" class="error-feedback" />
         </div>
@@ -65,7 +65,7 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup.string().required("Username is required!"),
+      username: yup.string().required("Email is required!"),
       password: yup.string().required("Password is required!"),
     });
 
