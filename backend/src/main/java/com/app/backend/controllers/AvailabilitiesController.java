@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/availabilities", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AvailabilitiesController {
 
-  private final AvailabilityService availabilityService;
-
   @Autowired
+  AvailabilityService availabilityService;
+
+  /*@Autowired
   public AvailabilitiesController(AvailabilityService availabilityService) {
     this.availabilityService = availabilityService;
-  }
+  }*/
 
   @GetMapping
   public List<AvailabilityResponse> listAvailabilities() {

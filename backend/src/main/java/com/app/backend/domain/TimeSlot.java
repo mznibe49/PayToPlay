@@ -41,12 +41,10 @@ public class TimeSlot {
   }
 
   public boolean isOverlappedBy(TimeSlot other) {
-    if (this.start.isEqual(other.start) && this.end.isEqual(other.end)) {
-      return true;
-    }
-
+    if (this.start.isEqual(other.start) && this.end.isEqual(other.end)) return true;
     return this.contains(other.start) || this.contains(other.end);
   }
+
   private boolean contains(LocalDateTime date) {
     return date.isAfter(this.start) && date.isBefore(this.end);
   }

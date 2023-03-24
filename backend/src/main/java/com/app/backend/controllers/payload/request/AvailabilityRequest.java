@@ -15,12 +15,19 @@ public class AvailabilityRequest {
   @NotBlank
   private LocalDateTime end;
 
+  @NotBlank
+  private long userId;
+
   public LocalDateTime getStart() {
     return start;
   }
 
   public void setStart(LocalDateTime start) {
     this.start = start;
+  }
+
+  public long getUserId(){
+    return userId;
   }
 
   public LocalDateTime getEnd() {

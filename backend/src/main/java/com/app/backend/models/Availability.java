@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "availability")
 public class Availability {
 
+
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
@@ -30,11 +31,16 @@ public class Availability {
   @OneToMany(mappedBy = "availability", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Reservation> reservations = new ArrayList<>();
 
+  @ManyToOne
+  private User linkedUser;
+
+
   public Availability() {}
 
-  public Availability(LocalDateTime start, LocalDateTime end) {
+  public Availability(LocalDateTime start, LocalDateTime end, User user) {
     this.start = start;
     this.end = end;
+    this.linkedUser = user;
   }
 
   public LocalDateTime getCreatedTime() {

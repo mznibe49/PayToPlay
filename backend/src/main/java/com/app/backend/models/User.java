@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -50,12 +49,6 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_time", updatable = false)
     private LocalDateTime updatedTime;
-
-    // @Column(name="enable",updatable = true)
-    // private boolean enable;
-
-    /* @Column(name="reset_password_token")
-    private String resetPasswordToken; */
 
     public User() {
     }
@@ -117,14 +110,6 @@ public class User {
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
     }
-
-    /*public String getResetPasswordToken() {
-        return resetPasswordToken;
-    }
-
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
-    }*/
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
