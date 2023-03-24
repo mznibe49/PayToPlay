@@ -2,6 +2,7 @@ package com.app.backend.services;
 
 import com.app.backend.controllers.payload.request.AvailabilityRequest;
 import com.app.backend.domain.TimeSlot;
+import com.app.backend.exceptions.domain.ForbiddenOperationException;
 import com.app.backend.exceptions.domain.NoSuchAvailabilityException;
 import com.app.backend.exceptions.domain.OverlappingAvailabilityException;
 import com.app.backend.models.Availability;
@@ -60,9 +61,8 @@ public class AvailabilityService {
             Availability availability = new Availability(newAvailability.getStart(), newAvailability.getEnd(), linkedUser.get());
             return availabilityRepository.save(availability);
         }
-
-        // return custom exception
-        return null;
+       // trying to add availability without linked user
+       throw new ForbiddenOperationException();
     }
 
 
