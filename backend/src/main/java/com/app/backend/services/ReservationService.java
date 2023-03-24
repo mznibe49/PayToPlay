@@ -73,6 +73,7 @@ public class ReservationService {
   }
 
   public void delete(long id, String email) {
+    // comparing with the email of the current user to avoid sec pbs
     Reservation reservation =
         this.reservationRepository
             .findById(id)
