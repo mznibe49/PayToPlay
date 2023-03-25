@@ -28,41 +28,30 @@ public class Reservation {
   private LocalDateTime end;
 
   @NotBlank
-  @Size(max = 50)
-  @Email
-  private String reservationEmail; // email of a person making the reservation
-
-  @NotBlank
   @Size(max = 20)
   private String eventTitle;
 
   @CreationTimestamp private LocalDateTime createdTime;
 
+  @ManyToOne
+  private User linkedUser;
+
   public Reservation() {}
 
   public Reservation(
-      Long id,
       Availability availability,
       LocalDateTime start,
       LocalDateTime end,
-      String reservationEmail,
       String eventTitle,
-      LocalDateTime createdTime) {
-    this.id = id;
+      User linkedUser) {
+
     this.availability = availability;
     this.start = start;
     this.end = end;
-    this.reservationEmail = reservationEmail;
     this.eventTitle = eventTitle;
-    this.createdTime = createdTime;
+    this.linkedUser = linkedUser;
   }
 
-  public Reservation(LocalDateTime start, LocalDateTime end, String email, String title) {
-    this.start = start;
-    this.end = end;
-    this.eventTitle = title;
-    this.reservationEmail = email;
-  }
 
   public LocalDateTime getCreatedTime() {
     return createdTime;
@@ -96,13 +85,13 @@ public class Reservation {
     this.end = end;
   }
 
-  public String getReservationEmail() {
+  /* public String getReservationEmail() {
     return reservationEmail;
   }
 
   public void setReservationEmail(String reservationEmail) {
     this.reservationEmail = reservationEmail;
-  }
+  } */
 
   public String getEventTitle() {
     return eventTitle;
@@ -119,4 +108,8 @@ public class Reservation {
   public void setId(Long id) {
     this.id = id;
   }
+
+  public User getLinkedUser(){ return getLinkedUser(); }
+
+  public void setLinkedUser(User user){ this.linkedUser = user; }
 }

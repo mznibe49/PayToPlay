@@ -8,6 +8,7 @@ import com.app.backend.models.Availability;
 import com.app.backend.models.Reservation;
 import com.app.backend.repository.AvailabilityRepository;
 import com.app.backend.repository.ReservationRepository;
+import com.app.backend.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +31,11 @@ class ReservationServiceUnitTest {
 
   @Mock private AvailabilityRepository availabilityRepository;
 
+  @Mock private UserRepository userRepository;
+
   @BeforeEach
   void setup() {
-    reservationService = new ReservationService(reservationRepository, availabilityRepository);
+    reservationService = new ReservationService(reservationRepository, availabilityRepository, userRepository);
   }
 
   @Test
@@ -58,7 +61,7 @@ class ReservationServiceUnitTest {
 
     Reservation reservation = reservationService.create(requestWithStart());
 
-    Assertions.assertThat(reservation.getReservationEmail()).isEqualTo("dupont@giskard.com");
+    Assertions.assertThat(reservation.getLinkedUser().getEmail()).isEqualTo("dupont@giskard.com");
     Assertions.assertThat(reservation.getEventTitle()).isEqualTo("Un joli titre");
     Assertions.assertThat(reservation.getStart()).isEqualTo(LocalDateTime.of(1997, 1, 1, 12, 30));
     Assertions.assertThat(reservation.getEnd()).isEqualTo(LocalDateTime.of(1997, 1, 1, 13, 0));
@@ -79,7 +82,7 @@ class ReservationServiceUnitTest {
     Reservation reservation =
         reservationService.create(requestWithStart(LocalDateTime.of(1997, 1, 1, 13, 0)));
 
-    Assertions.assertThat(reservation.getReservationEmail()).isEqualTo("dupont@giskard.com");
+    Assertions.assertThat(reservation.getLinkedUser().getEmail()).isEqualTo("dupont@giskard.com");
     Assertions.assertThat(reservation.getEventTitle()).isEqualTo("Un joli titre");
     Assertions.assertThat(reservation.getStart()).isEqualTo(LocalDateTime.of(1997, 1, 1, 13, 0));
     Assertions.assertThat(reservation.getEnd()).isEqualTo(LocalDateTime.of(1997, 1, 1, 13, 30));
@@ -119,7 +122,7 @@ class ReservationServiceUnitTest {
     reservations.add(
         Reservation.builder()
             .id(1L)
-            .reservationEmail("some1")
+            // .reservationEmail("some1")
             .eventTitle("title1")
             .createdTime(LocalDateTime.now())
             .start(LocalDateTime.of(1997, 1, 1, 12, 30))
@@ -128,7 +131,7 @@ class ReservationServiceUnitTest {
     reservations.add(
         Reservation.builder()
             .id(2L)
-            .reservationEmail("some2")
+            // .reservationEmail("some2")
             .eventTitle("title2")
             .createdTime(LocalDateTime.now())
             .start(LocalDateTime.of(1997, 1, 1, 13, 30))

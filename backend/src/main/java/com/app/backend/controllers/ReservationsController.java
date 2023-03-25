@@ -18,12 +18,14 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/reservations", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ReservationsController {
 
-  private final ReservationService reservationService;
 
   @Autowired
+  private ReservationService reservationService;
+
+  /* @Autowired
   public ReservationsController(ReservationService reservationService) {
     this.reservationService = reservationService;
-  }
+  } */
 
   @GetMapping
   public List<ReservationResponse> listReservations() {

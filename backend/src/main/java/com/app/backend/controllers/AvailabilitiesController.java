@@ -1,6 +1,7 @@
 package com.app.backend.controllers;
 
 import com.app.backend.controllers.payload.request.AvailabilityRequest;
+import com.app.backend.controllers.payload.request.DeleteReservationRequest;
 import com.app.backend.controllers.payload.response.AvailabilityResponse;
 import com.app.backend.models.Availability;
 import com.app.backend.services.AvailabilityService;
@@ -21,11 +22,6 @@ public class AvailabilitiesController {
   @Autowired
   AvailabilityService availabilityService;
 
-  /*@Autowired
-  public AvailabilitiesController(AvailabilityService availabilityService) {
-    this.availabilityService = availabilityService;
-  }*/
-
   @GetMapping
   public List<AvailabilityResponse> listAvailabilities() {
     return availabilityService.loadAllAvailabilities().stream()
@@ -41,7 +37,7 @@ public class AvailabilitiesController {
 
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteAvailability(@PathVariable int id) {
-    this.availabilityService.deleteById(id);
+  public void deleteAvailability(@PathVariable int id, DeleteReservationRequest deleteReservationRequest) {
+    this.availabilityService.deleteById(id, deleteReservationRequest.getEmail());
   }
 }

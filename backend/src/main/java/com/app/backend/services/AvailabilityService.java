@@ -4,8 +4,10 @@ import com.app.backend.controllers.payload.request.AvailabilityRequest;
 import com.app.backend.domain.TimeSlot;
 import com.app.backend.exceptions.domain.ForbiddenOperationException;
 import com.app.backend.exceptions.domain.NoSuchAvailabilityException;
+import com.app.backend.exceptions.domain.NoSuchReservationException;
 import com.app.backend.exceptions.domain.OverlappingAvailabilityException;
 import com.app.backend.models.Availability;
+import com.app.backend.models.Reservation;
 import com.app.backend.models.User;
 import com.app.backend.repository.AvailabilityRepository;
 import com.app.backend.repository.UserRepository;
@@ -20,19 +22,14 @@ import java.util.Optional;
 public class AvailabilityService {
 
     @Autowired
-    private final UserRepository userRepository;
-
-    private final AvailabilityRepository availabilityRepository;
+    UserRepository userRepository;
 
     @Autowired
-    public AvailabilityService(UserRepository userRepository, AvailabilityRepository availabilityRepository) {
-        this.userRepository = userRepository;
-        this.availabilityRepository = availabilityRepository;
-    }
+    AvailabilityRepository availabilityRepository;
 
-    public List<Availability> loadAllAvailabilities() {
+    /* public List<Availability> loadAllAvailabilities() {
         return availabilityRepository.findAllByOrderByStartAsc();
-    }
+    } */
 
     public Availability createAvailability(AvailabilityRequest newAvailability) {
 
@@ -66,12 +63,30 @@ public class AvailabilityService {
     }
 
 
-    public void deleteById(long id) {
+    public void deleteById(long id, String email) {
         boolean exists = this.availabilityRepository.existsById(id);
         if (!exists) {
             throw new NoSuchAvailabilityException(id);
         }
 
         this.availabilityRepository.deleteById(id);
+    }
+
+    public void delete(long id, String email) {
+        // comparing with the email of the current user to avoid sec pbs
+        Availability availability =
+                this.availabilityRepository
+                        .findById(id)
+                        .orElseThrow(() -> new NoSuchAvailabilityException(id));
+
+        User userDeletingAvailability = this.userRepository
+                .findByEmail(email).orElseThrow(ForbiddenOperationException::new);
+
+        // adding security to ensure that the person who is deleting is the person who created the reservation
+        if (!userDeletingAvailability.getId().equals(availability.getLinkedUser().getId())) {
+            throw new ForbiddenOperationException();
+        }
+
+        this.availabilityRepository.delete(availability);
     }
 }
