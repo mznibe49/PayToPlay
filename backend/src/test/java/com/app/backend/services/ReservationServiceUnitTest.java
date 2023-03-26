@@ -6,6 +6,7 @@ import com.app.backend.exceptions.domain.OverlappingReservationException;
 import com.app.backend.exceptions.domain.ReservationNotFittingException;
 import com.app.backend.models.Availability;
 import com.app.backend.models.Reservation;
+import com.app.backend.models.User;
 import com.app.backend.repository.AvailabilityRepository;
 import com.app.backend.repository.ReservationRepository;
 import com.app.backend.repository.UserRepository;
@@ -123,6 +124,7 @@ class ReservationServiceUnitTest {
 
     private Availability availability() {
         List<Reservation> reservations = new ArrayList<>();
+        User user = new User("username", "email@email.com", "password");
         reservations.add(
                 Reservation.builder()
                         .id(1L)
@@ -131,6 +133,7 @@ class ReservationServiceUnitTest {
                         .createdTime(LocalDateTime.now())
                         .start(LocalDateTime.of(1997, 1, 1, 12, 30))
                         .end(LocalDateTime.of(1997, 1, 1, 13, 0))
+                        .linkedUser(user)
                         .build());
         reservations.add(
                 Reservation.builder()
@@ -140,6 +143,7 @@ class ReservationServiceUnitTest {
                         .createdTime(LocalDateTime.now())
                         .start(LocalDateTime.of(1997, 1, 1, 13, 30))
                         .end(LocalDateTime.of(1997, 1, 1, 14, 0))
+                        .linkedUser(user)
                         .build());
 
         return Availability.builder()
