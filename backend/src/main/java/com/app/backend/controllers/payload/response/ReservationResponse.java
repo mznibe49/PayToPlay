@@ -28,7 +28,7 @@ public class ReservationResponse {
         .eventTitle(reservation.getEventTitle())
         .start(reservation.getStart())
         .end(reservation.getEnd())
-        .email(reservation.getReservationEmail())
+        .email(reservation.getLinkedUser().getEmail())
         .build();
   }
 }

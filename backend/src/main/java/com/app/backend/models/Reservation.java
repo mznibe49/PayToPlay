@@ -1,5 +1,6 @@
 package com.app.backend.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "reservation")

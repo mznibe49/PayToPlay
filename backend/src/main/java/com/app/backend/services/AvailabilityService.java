@@ -27,9 +27,9 @@ public class AvailabilityService {
     @Autowired
     AvailabilityRepository availabilityRepository;
 
-    /* public List<Availability> loadAllAvailabilities() {
+    public List<Availability> loadAllAvailabilities() {
         return availabilityRepository.findAllByOrderByStartAsc();
-    } */
+    } 
 
     public Availability createAvailability(AvailabilityRequest newAvailability) {
 
