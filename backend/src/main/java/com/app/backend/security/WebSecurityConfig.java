@@ -55,9 +55,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 //.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/**").permitAll()
+                .authorizeRequests()
+
+                // for tests we will add these thwo line to permit all requests from postman
                 .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/**").permitAll()
+                //.antMatchers("/login/oauth2/**").permitAll()
                 .anyRequest().authenticated();
+
+                // other ways we have to allow online /login /register /home such as
+                /*
+                .antMatchers("/").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated();
+                */
+
+
+                //.and().oauth2Login();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

@@ -1,7 +1,6 @@
 package com.app.backend.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -9,7 +8,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "availability")
@@ -34,54 +34,9 @@ public class Availability {
   @ManyToOne
   private User linkedUser;
 
-
-  public Availability() {}
-
   public Availability(LocalDateTime start, LocalDateTime end, User user) {
     this.start = start;
     this.end = end;
     this.linkedUser = user;
   }
-
-  public LocalDateTime getCreatedTime() {
-    return createdTime;
-  }
-
-  public void setCreatedTime(LocalDateTime createdTime) {
-    this.createdTime = createdTime;
-  }
-
-  public List<Reservation> getReservations() {
-    return reservations;
-  }
-
-  public void setReservations(List<Reservation> reservations) {
-    this.reservations = reservations;
-  }
-
-  public LocalDateTime getStart() {
-    return start;
-  }
-
-  public void setStart(LocalDateTime start) {
-    this.start = start;
-  }
-
-  public LocalDateTime getEnd() {
-    return end;
-  }
-
-  public void setEnd(LocalDateTime end) {
-    this.end = end;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public User getLinkedUser(){ return this.getLinkedUser(); }
 }

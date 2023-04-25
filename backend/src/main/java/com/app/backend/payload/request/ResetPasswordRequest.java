@@ -1,7 +1,12 @@
 package com.app.backend.payload.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 
+@Getter
+@Setter
 public class ResetPasswordRequest {
 
     @NotBlank
@@ -9,20 +14,4 @@ public class ResetPasswordRequest {
 
     @NotBlank
     private String confirmationEmail;
-
-    public String getConfirmationEmail() {
-        return confirmationEmail;
-    }
-
-    public void setConfirmationEmail(String confirmationEmail) {
-        this.confirmationEmail = confirmationEmail;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

@@ -1,7 +1,12 @@
 package com.app.backend.payload.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 
+@Getter
+@Setter
 public class UpdatePasswordRequest {
 
     @NotBlank
@@ -10,19 +15,4 @@ public class UpdatePasswordRequest {
     @NotBlank
     private String password;
 
-    public String getUserToken() {
-        return userToken;
-    }
-
-    public void setUserToken(String userToken) {
-        this.userToken = userToken;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

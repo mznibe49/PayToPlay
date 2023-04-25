@@ -1,9 +1,14 @@
 package com.app.backend.models;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "roles")
 public class Role {
     @Id
@@ -19,22 +24,6 @@ public class Role {
     }
 
     public Role(ERole name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public ERole getName() {
-        return name;
-    }
-
-    public void setName(ERole name) {
         this.name = name;
     }
 }

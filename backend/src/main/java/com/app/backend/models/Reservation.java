@@ -2,6 +2,8 @@ package com.app.backend.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,7 +12,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "reservation")
@@ -38,8 +41,6 @@ public class Reservation {
   @ManyToOne
   private User linkedUser;
 
-  public Reservation() {}
-
   public Reservation(
       Availability availability,
       LocalDateTime start,
@@ -53,65 +54,4 @@ public class Reservation {
     this.eventTitle = eventTitle;
     this.linkedUser = linkedUser;
   }
-
-
-  public LocalDateTime getCreatedTime() {
-    return createdTime;
-  }
-
-  public void setCreatedTime(LocalDateTime createdTime) {
-    this.createdTime = createdTime;
-  }
-
-  public Availability getAvailability() {
-    return availability;
-  }
-
-  public void setAvailability(Availability availability) {
-    this.availability = availability;
-  }
-
-  public LocalDateTime getStart() {
-    return start;
-  }
-
-  public void setStart(LocalDateTime start) {
-    this.start = start;
-  }
-
-  public LocalDateTime getEnd() {
-    return end;
-  }
-
-  public void setEnd(LocalDateTime end) {
-    this.end = end;
-  }
-
-  /* public String getReservationEmail() {
-    return reservationEmail;
-  }
-
-  public void setReservationEmail(String reservationEmail) {
-    this.reservationEmail = reservationEmail;
-  } */
-
-  public String getEventTitle() {
-    return eventTitle;
-  }
-
-  public void setEventTitle(String eventTitle) {
-    this.eventTitle = eventTitle;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public User getLinkedUser(){ return getLinkedUser(); }
-
-  public void setLinkedUser(User user){ this.linkedUser = user; }
 }
