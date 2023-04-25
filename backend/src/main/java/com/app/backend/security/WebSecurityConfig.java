@@ -29,6 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
+    private static final String[] SWAGGER_WHITELIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+    };
+
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
@@ -58,9 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 // for tests we will add these thwo line to permit all requests from postman
+                //.antMatchers("/api/**").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/api/**").permitAll()
-                //.antMatchers("/login/oauth2/**").permitAll()
+                .antMatchers(SWAGGER_WHITELIST).hasRole("ADMIN")
                 .anyRequest().authenticated();
 
                 // other ways we have to allow online /login /register /home such as
